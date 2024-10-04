@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 
 import { AuthenticationGuard } from "@/components/guards/authentication-guard";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { api } from "@/utils/api";
 
@@ -16,7 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <div className={cn(GeistSans.className, "font-sans antialiased")}>
+      <main className={cn(GeistSans.className, "font-sans antialiased")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -26,8 +27,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
           <AuthenticationGuard>
             <Component {...pageProps} />
           </AuthenticationGuard>
+          <Toaster />
         </ThemeProvider>
-      </div>
+      </main>
     </SessionProvider>
   );
 };
