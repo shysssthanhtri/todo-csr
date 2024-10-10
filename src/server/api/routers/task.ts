@@ -12,4 +12,13 @@ export const taskRouter = createTRPCRouter({
         },
       });
     }),
+
+  list: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db.task.findMany({
+      where: { userId: ctx.session.user.id },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }),
 });
