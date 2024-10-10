@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
 import React, { useState } from "react";
 
+import { TaskForm } from "@/components/forms/task-form";
 import { Button, ButtonLoading } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -31,7 +32,7 @@ export const CreateTaskButton = () => {
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
-        Hello
+        <TaskForm />
         <DialogFooter className="gap-x-6">
           <div className="flex items-center gap-x-2 text-sm text-gray-500">
             <Checkbox
