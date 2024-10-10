@@ -6,6 +6,8 @@ import type { PostWithRelations } from "./PostSchema";
 import { PostWithRelationsSchema } from "./PostSchema";
 import type { SessionWithRelations } from "./SessionSchema";
 import { SessionWithRelationsSchema } from "./SessionSchema";
+import type { TaskWithRelations } from "./TaskSchema";
+import { TaskWithRelationsSchema } from "./TaskSchema";
 
 /////////////////////////////////////////
 // USER SCHEMA
@@ -29,6 +31,7 @@ export type UserRelations = {
   accounts: AccountWithRelations[];
   sessions: SessionWithRelations[];
   posts: PostWithRelations[];
+  tasks: TaskWithRelations[];
 };
 
 export type UserWithRelations = z.infer<typeof UserSchema> & UserRelations;
@@ -39,6 +42,7 @@ export const UserWithRelationsSchema: z.ZodType<UserWithRelations> =
       accounts: z.lazy(() => AccountWithRelationsSchema).array(),
       sessions: z.lazy(() => SessionWithRelationsSchema).array(),
       posts: z.lazy(() => PostWithRelationsSchema).array(),
+      tasks: z.lazy(() => TaskWithRelationsSchema).array(),
     }),
   );
 

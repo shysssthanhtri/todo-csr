@@ -82,6 +82,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    tasks         Task[]
 }
 
 model VerificationToken {
@@ -90,4 +91,15 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Task {
+    id          String   @id @default(cuid())
+    title       String
+    description String?
+    userId      String
+    checked     Boolean  @default(false)
+    createdAt   DateTime @default(now())
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
