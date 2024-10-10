@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
-import { TaskForm } from "@/components/forms/task-form";
+import { TaskForm, type TaskFormRef } from "@/components/forms/task-form";
 import { Button, ButtonLoading } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -12,10 +12,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { toast } from "@/hooks/use-toast";
+import { api } from "@/utils/api";
 
 export const CreateTaskButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMultipleCreating, setIsMultipleCreating] = useState(false);
+  const ref = useRef<TaskFormRef>(null);
+
+  const { isPending, mutate } = api.task.create.useMutation({
+    onSuccess: () => {
+      toast({
+        title: "Saved",
+      });
+      ref.current?.reset();
+
+      if (!isMultipleCreating) {
+        setIsOpen(false);
+      }
+    },
+    onError: (err) => {
+      toast({
+        title: "Something went wrong",
+        variant: "destructive",
+        description: err.message,
+      });
+    },
+  });
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -32,16 +55,25 @@ export const CreateTaskButton = () => {
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
-        <TaskForm />
+        <TaskForm isPending={isPending} onSubmit={mutate} ref={ref} />
         <DialogFooter className="gap-x-6">
           <div className="flex items-center gap-x-2 text-sm text-gray-500">
             <Checkbox
               checked={isMultipleCreating}
               onClick={() => setIsMultipleCreating(!isMultipleCreating)}
+              disabled={isPending}
             />
             Add more
           </div>
-          <ButtonLoading type="submit">Add</ButtonLoading>
+          <ButtonLoading
+            type="submit"
+            isLoading={isPending}
+            onClick={() => {
+              ref.current?.submit();
+            }}
+          >
+            Add
+          </ButtonLoading>
         </DialogFooter>
       </DialogContent>
     </Dialog>
