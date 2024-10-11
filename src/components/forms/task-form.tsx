@@ -3,7 +3,13 @@ import React, { forwardRef, useCallback, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateTaskDto } from "@/dtos/task/create-task.dto";
@@ -67,6 +73,7 @@ export const TaskForm = forwardRef<TaskFormRef, TaskFormProps>((props, ref) => {
                   disabled={isPending}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -83,6 +90,7 @@ export const TaskForm = forwardRef<TaskFormRef, TaskFormProps>((props, ref) => {
                   disabled={isPending}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

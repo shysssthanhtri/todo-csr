@@ -8,10 +8,10 @@ interface TaskListProps {
 }
 export const TaskList = ({ tasks }: TaskListProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-y-4">
       {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
-    </>
+    </div>
   );
 };
