@@ -42,10 +42,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --ignore-scripts
-
-      - name: Generate Prisma
-        run: npx prisma generate
+        run: pnpm install
 
       - name: Run lint
         run: pnpm lint:fix
