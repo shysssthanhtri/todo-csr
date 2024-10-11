@@ -1,0 +1,35 @@
+name: Next.js CI
+
+on:
+  push:
+    branches: "*"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --prod
+
+      - name: Run lint
+        run: pnpm lint
+
+      - name: Build the application
+        run: pnpm build
+
+      - name: Preview Build (Optional)
+        run: pnpm start & sleep 10 && curl --fail http://localhost:3000 || exit 1
