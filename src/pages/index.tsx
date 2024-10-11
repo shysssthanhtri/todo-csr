@@ -1,14 +1,18 @@
+import { TaskList } from "@/components/molecules/task-list";
+import { TaskListSkeleton } from "@/components/molecules/task-list-skeleton";
 import { CreateTaskButton } from "@/components/organisms/create-task-button";
-import { TaskListController } from "@/components/organisms/task-list-controller";
 import { PageTemplate } from "@/components/templates/page-template";
+import { api } from "@/utils/api";
 
 export default function Home() {
+  const { data: tasks = [], isPending, refetch } = api.task.list.useQuery();
   return (
     <>
       <PageTemplate>
-        <TaskListController />
+        {!isPending && <TaskList tasks={tasks} />}
+        {isPending && <TaskListSkeleton />}
       </PageTemplate>
-      <CreateTaskButton />
+      <CreateTaskButton onSuccess={refetch} />
     </>
   );
 }

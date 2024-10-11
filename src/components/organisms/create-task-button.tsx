@@ -15,7 +15,10 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { api } from "@/utils/api";
 
-export const CreateTaskButton = () => {
+interface CreateTaskButtonProps {
+  onSuccess?: () => void;
+}
+export const CreateTaskButton = ({ onSuccess }: CreateTaskButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMultipleCreating, setIsMultipleCreating] = useState(false);
   const ref = useRef<TaskFormRef>(null);
@@ -30,6 +33,8 @@ export const CreateTaskButton = () => {
       if (!isMultipleCreating) {
         setIsOpen(false);
       }
+
+      onSuccess?.();
     },
     onError: (err) => {
       toast({
