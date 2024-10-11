@@ -16,6 +16,7 @@ jobs:
         NEXTAUTH_SECRET: "mock"
         GOOGLE_CLIENT_ID: "mock"
         GOOGLE_CLIENT_SECRET: "mock"
+        NODE_ENV: "production"
 
     steps:
       - name: Checkout code
@@ -52,3 +53,23 @@ jobs:
 
       - name: Preview Build (Optional)
         run: pnpm start & sleep 10 && curl --fail http://localhost:3000 || exit 1
+
+
+  CD:
+
+    runs-on: ubuntu-latest
+    environment: prod
+    needs: CI
+    if: github.ref == 'refs/heads/main'
+
+    env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+        NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        NODE_ENV: "production"
+
+    steps:
+        -   name: Checkout code
+            uses: actions/checkout@v4
