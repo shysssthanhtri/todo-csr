@@ -4,6 +4,13 @@ on:
   push:
     branches: "*"
 
+env:
+  DATABASE_URL: "mock"
+  NEXTAUTH_SECRET: "mock"
+  NEXTAUTH_URL: "mock"
+  GOOGLE_CLIENT_ID: "mock"
+  GOOGLE_CLIENT_SECRET: "mock"
+
 jobs:
   CI:
 
