@@ -2,19 +2,20 @@ name: Next.js CI
 
 on:
   push:
-    branches: "*"
-
-env:
-  DATABASE_URL: "http://localhost:3000"
-  NEXTAUTH_URL: "http://localhost:3000"
-  NEXTAUTH_SECRET: "mock"
-  GOOGLE_CLIENT_ID: "mock"
-  GOOGLE_CLIENT_SECRET: "mock"
+    branches:
+      - "*"
 
 jobs:
   CI:
 
     runs-on: ubuntu-latest
+
+    env:
+        DATABASE_URL: "http://localhost:3000"
+        NEXTAUTH_URL: "http://localhost:3000"
+        NEXTAUTH_SECRET: "mock"
+        GOOGLE_CLIENT_ID: "mock"
+        GOOGLE_CLIENT_SECRET: "mock"
 
     steps:
       - name: Checkout code
