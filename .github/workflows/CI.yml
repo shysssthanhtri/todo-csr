@@ -44,10 +44,10 @@ jobs:
         run: pnpm install --ignore-scripts
 
       - name: Generate Prisma
-        run: npx prisma generate && pnpm lint:fix
+        run: npx prisma generate
 
       - name: Run lint
-        run: pnpm lint
+        run: pnpm lint:fix
 
       - name: Build the application
         run: pnpm build
