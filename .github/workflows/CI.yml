@@ -31,7 +31,7 @@ jobs:
         run: pnpm install --ignore-scripts
 
       - name: Generate Prisma
-        run: npx prisma generate
+        run: npx prisma generate && pnpm lint:fix
 
       - name: Run lint
         run: pnpm lint
