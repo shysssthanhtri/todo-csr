@@ -45,7 +45,7 @@ jobs:
         run: pnpm install
 
       - name: Run lint
-        run: pnpm lint:fix
+        run: pnpm lint
 
       - name: Build the application
         run: pnpm build
