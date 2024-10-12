@@ -6,13 +6,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { type ITaskDto } from "@/dtos/task/task.dto";
+import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { api } from "@/utils/api";
 
 interface TaskItemProps {
   task: ITaskDto;
 }
 export const TaskItem = ({ task }: TaskItemProps) => {
+  const utils = api.useUtils();
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { isPending, mutate } = api.task.check.useMutation({
+    onSuccess: () => {
+      void utils.task.list.refetch();
+    },
+    onError: (err) => {
+      toast({
+        title: "Something went wrong",
+        variant: "destructive",
+        description: err.message,
+      });
+    },
+  });
 
   const expandedButton = useMemo(() => {
     if (!task.description) return null;
@@ -34,9 +50,20 @@ export const TaskItem = ({ task }: TaskItemProps) => {
     <Card>
       <CardContent className="pt-6">
         <div className="flex items-center justify-between">
-          <div>
-            <Checkbox className="mr-4" />
-            {task.title}
+          <div className="flex items-center">
+            <Checkbox
+              className="mr-4"
+              checked={task.checked}
+              disabled={isPending || task.checked}
+              onCheckedChange={() => {
+                mutate({ id: task.id });
+              }}
+            />
+            <label
+              className={`${task.checked ? "text-gray-500 line-through" : ""}`}
+            >
+              {task.title}
+            </label>
             {expandedButton}
           </div>
           <DeleteTaskButton taskId={task.id} />

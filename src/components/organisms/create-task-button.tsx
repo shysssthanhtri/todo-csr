@@ -65,7 +65,7 @@ export const CreateTaskButton = ({ onSuccess }: CreateTaskButtonProps) => {
           <div className="flex items-center gap-x-2 text-sm text-gray-500">
             <Checkbox
               checked={isMultipleCreating}
-              onClick={() => setIsMultipleCreating(!isMultipleCreating)}
+              onCheckedChange={() => setIsMultipleCreating(!isMultipleCreating)}
               disabled={isPending}
             />
             Add more

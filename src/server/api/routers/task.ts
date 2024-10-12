@@ -33,4 +33,16 @@ export const taskRouter = createTRPCRouter({
         },
       });
     }),
+
+  check: protectedProcedure
+    .input(TaskDto.pick({ id: true }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.task.update({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id,
+        },
+        data: { checked: true },
+      });
+    }),
 });
