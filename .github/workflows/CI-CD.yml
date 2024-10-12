@@ -69,6 +69,8 @@ jobs:
         GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
         GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         NODE_ENV: "production"
 
     steps:
@@ -87,4 +89,12 @@ jobs:
             run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
 
         -   name: Deploy Project Artifacts to Vercel
-            run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }}
+            run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }} \
+                  --DATABASE_URL=$DATABASE_URL
+                  --NEXTAUTH_URL=$NEXTAUTH_URL
+                  --NEXTAUTH_SECRET=$NEXTAUTH_SECRET
+                  --GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+                  --GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+
+
+
