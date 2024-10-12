@@ -88,25 +88,10 @@ jobs:
         -   name: Build Project Artifacts
             run: vercel build --prod --token=${{ env.VERCEL_TOKEN }}
 
-        # -   name: Deploy Project Artifacts to Vercel
-        #     run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }} \
-        #           --env DATABASE_URL=$DATABASE_URL \
-        #           --env NEXTAUTH_URL=$NEXTAUTH_URL \
-        #           --env NEXTAUTH_SECRET=$NEXTAUTH_SECRET \
-        #           --env GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID \
-        #           --env GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
-
         -   name: Deploy Project Artifacts to Vercel
-            uses: amondnet/vercel-action@v25
-            with:
-              vercel-token: ${{ env.VERCEL_TOKEN }} # Required
-              vercel-args: '--prod' #Optional
-              vercel-org-id: ${{ env.VERCEL_ORG_ID}}  #Required
-              vercel-project-id: ${{ env.VERCEL_PROJECT_ID}} #Required 
-              working-directory: .
-            env:
-              DATABASE_URL: ${{ env.DATABASE_URL }}
-              NEXTAUTH_URL: ${{ env.NEXTAUTH_URL }}
-              NEXTAUTH_SECRET: ${{ env.NEXTAUTH_SECRET }}
-              GOOGLE_CLIENT_ID: ${{ env.GOOGLE_CLIENT_ID }}
-              GOOGLE_CLIENT_SECRET: ${{ env.GOOGLE_CLIENT_SECRET }}
+            run: vercel deploy --prebuilt --prod --token=${{ env.VERCEL_TOKEN }} \
+                  --env DATABASE_URL=${{ env.DATABASE_URL }} \
+                  --env NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
+                  --env NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }} \
+                  --env GOOGLE_CLIENT_ID=${{ env.GOOGLE_CLIENT_ID }} \
+                  --env GOOGLE_CLIENT_SECRET=${{ env.GOOGLE_CLIENT_SECRET }}
