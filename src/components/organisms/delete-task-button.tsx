@@ -55,7 +55,7 @@ export const DeleteTaskButton = ({ taskId }: DeleteTaskButtonProps) => {
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>This action cannot be undone.</DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="gap-y-2">
           <Button
             variant="outline"
             onClick={() => setIsOpen(false)}

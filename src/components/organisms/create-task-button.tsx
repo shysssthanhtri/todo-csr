@@ -61,7 +61,7 @@ export const CreateTaskButton = ({ onSuccess }: CreateTaskButtonProps) => {
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
         <TaskForm isPending={isPending} onSubmit={mutate} ref={ref} />
-        <DialogFooter className="gap-x-6">
+        <DialogFooter className="flex-col gap-x-6 gap-y-2 sm:flex-row">
           <div className="flex items-center gap-x-2 text-sm text-gray-500">
             <Checkbox
               checked={isMultipleCreating}
