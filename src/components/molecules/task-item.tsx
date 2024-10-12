@@ -1,6 +1,7 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
+import { DeleteTaskButton } from "@/components/organisms/delete-task-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -32,10 +33,13 @@ export const TaskItem = ({ task }: TaskItemProps) => {
   return (
     <Card>
       <CardContent className="pt-6">
-        <div className="flex items-center">
-          <Checkbox className="mr-4" />
-          {task.title}
-          {expandedButton}
+        <div className="flex items-center justify-between">
+          <div>
+            <Checkbox className="mr-4" />
+            {task.title}
+            {expandedButton}
+          </div>
+          <DeleteTaskButton taskId={task.id} />
         </div>
         <div
           className={cn(

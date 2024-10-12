@@ -1,4 +1,5 @@
 import { CreateTaskDto } from "@/dtos/task/create-task.dto";
+import { TaskDto } from "@/dtos/task/task.dto";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 
 export const taskRouter = createTRPCRouter({
@@ -21,4 +22,15 @@ export const taskRouter = createTRPCRouter({
       },
     });
   }),
+
+  delete: protectedProcedure
+    .input(TaskDto.pick({ id: true }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.task.delete({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id,
+        },
+      });
+    }),
 });
